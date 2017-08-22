@@ -37,15 +37,17 @@ fi;
 
 echo "building the szip library...";
 cd ${BASEPBNAME}/szip;
-./configure --with-pic --enable-shared=no \
+./configure --with-pic --enable-shared=yes \
     CC="${CC}" CFLAGS="${CFLAGS} -w"
 $MAKE
 
 echo "building the bundled hdf5 library...";
 cd ../;
 ## we add the '-w' flag to suppress all the warnings hdf5 prints
-./configure --with-pic --enable-shared=no --enable-cxx \
+./configure --with-pic --enable-shared=yes --enable-cxx \
     --with-szlib \
+    --enable-production \
+    --disable-hl \
     CXX="${CXX}" CXFLAGS="${CXXFLAGS} -w" CC="${CC}" CFLAGS="${CFLAGS} -w -L../szip/src/.libs -I../szip/src"
 $MAKE lib
 cd ../../
@@ -58,14 +60,25 @@ AC_SUBST(HDF5_CXX_INCLUDE)
 AC_MSG_NOTICE([   HDF5_INCLUDE=${HDF5_INCLUDE}])
 AC_MSG_NOTICE([   HDF5_CXX_INCLUDE=${HDF5_CXX_INCLUDE}])
 
-HDF5_LIB="${BASEPBNAME}/src/.libs/libhdf5.a"
-HDF5_CXX_LIB="${BASEPBNAME}/c++/src/.libs/libhdf5_cpp.a"
-SZIP_LIB="${BASEPBNAME}/szip/src/.libs/libsz.a"
-AC_SUBST(HDF5_LIB)
-AC_SUBST(HDF5_CXX_LIB)
-AC_SUBST(SZIP_LIB)
-AC_MSG_NOTICE([   HDF5_LIB=${HDF5_LIB}])
-AC_MSG_NOTICE([   HDF5_CXX_LIB=${HDF5_CXX_LIB}])
-AC_MSG_NOTICE([   SZIP_LIB=${SZIP_LIB}])
+#HDF5_LIB="${BASEPBNAME}/src/.libs/libhdf5.a"
+#HDF5_CXX_LIB="${BASEPBNAME}/c++/src/.libs/libhdf5_cpp.a"
+#SZIP_LIB="${BASEPBNAME}/szip/src/.libs/libsz.a"
+#AC_SUBST(HDF5_LIB)
+#AC_SUBST(HDF5_CXX_LIB)
+#AC_SUBST(SZIP_LIB)
+#AC_MSG_NOTICE([   HDF5_LIB=${HDF5_LIB}])
+#AC_MSG_NOTICE([   HDF5_CXX_LIB=${HDF5_CXX_LIB}])
+#AC_MSG_NOTICE([   SZIP_LIB=${SZIP_LIB}])
+
+HDF5_SHLIB="${BASEPBNAME}/src/.libs/libhdf5.so*"
+HDF5_CXX_SHLIB="${BASEPBNAME}/c++/src/.libs/libhdf5_cpp.so*"
+SZIP_SHLIB="${BASEPBNAME}/szip/src/.libs/libsz.so*"
+AC_SUBST(HDF5_SHLIB)
+AC_SUBST(HDF5_CXX_SHLIB)
+AC_SUBST(SZIP_SHLIB)
+AC_MSG_NOTICE([   HDF5_SHLIB=${HDF5_SHLIB}])
+AC_MSG_NOTICE([   HDF5_CXX_SHLIB=${HDF5_CXX_SHLIB}])
+AC_MSG_NOTICE([   SZIP_SHLIB=${SZIP_SHLIB}])
+
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT

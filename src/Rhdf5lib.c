@@ -1,5 +1,6 @@
 /* do not remove */
 
+/*
 #include <Rdefines.h>
 #include <R_ext/Error.h>
 
@@ -52,3 +53,4 @@ void R_init_Rhdf5lib(DllInfo *info)
   R_registerRoutines(info, NULL, callMethods, NULL, NULL);
 }
 
+*/

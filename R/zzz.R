@@ -11,7 +11,7 @@
 #' pkgconfig("PKG_C_LIBS")
 #' @export
 pkgconfig <- function(opt = c("PKG_CXX_LIBS", "PKG_C_LIBS")) {
-    path <- system.file("lib", package="Rhdf5lib", mustWork=TRUE)
+    path <- system.file("libs", package="Rhdf5lib", mustWork=TRUE)
     if (nzchar(.Platform$r_arch)) {
         arch <- sprintf("/%s", .Platform$r_arch)
     } else {
@@ -27,7 +27,7 @@ pkgconfig <- function(opt = c("PKG_CXX_LIBS", "PKG_C_LIBS")) {
                      PKG_C_LIBS = {
                          switch(Sys.info()['sysname'], 
                                 Linux = {
-                                    sprintf('%s/libhdf5.a %s/libsz.a',
+                                    sprintf('%s/libhdf5.so %s/libsz.so',
                                             patharch, patharch)
                                 }, Darwin = {
                                     sprintf('%s/libhdf5.a %s/libsz.a', 
@@ -45,7 +45,7 @@ pkgconfig <- function(opt = c("PKG_CXX_LIBS", "PKG_C_LIBS")) {
                      PKG_CXX_LIBS = {
                          switch(Sys.info()['sysname'], 
                                 Linux = {
-                                    sprintf('%s/libhdf5_cpp.a %s/libhdf5.a %s/libsz.a',
+                                    sprintf('-Wl,-rpath,%s %s/libhdf5_cpp.so %s/libhdf5.so',
                                             patharch, patharch, patharch)
                                 }, Darwin = {
                                     sprintf('%s/libhdf5_cpp.a %s/libhdf5.a %s/libsz.a', 
