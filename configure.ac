@@ -48,6 +48,11 @@ cd ../;
     --with-szlib \
     CXX="${CXX}" CXFLAGS="${CXXFLAGS} -w" CC="${CC}" CFLAGS="${CFLAGS} -w -L../szip/src/.libs -I../szip/src"
 $MAKE lib
+#cd ../../
+
+#gcc -O2 -fPIC -shared lzf/*.c lzf_filter.c -lhdf5 -o liblzf_filter.so
+cd ../lzf
+${CC} -O2 -fPIC -shared lzf/*.c lzf_filter.c ../${BASEPBNAME}/src/.libs/libhdf5.a -o liblzf_filter.so
 cd ../../
 
 #update variables in Makevars
@@ -61,11 +66,14 @@ AC_MSG_NOTICE([   HDF5_CXX_INCLUDE=${HDF5_CXX_INCLUDE}])
 HDF5_LIB="${BASEPBNAME}/src/.libs/libhdf5.a"
 HDF5_CXX_LIB="${BASEPBNAME}/c++/src/.libs/libhdf5_cpp.a"
 SZIP_LIB="${BASEPBNAME}/szip/src/.libs/libsz.a"
+LZF_LIB="lzf/liblzf_filter.so"
 AC_SUBST(HDF5_LIB)
 AC_SUBST(HDF5_CXX_LIB)
 AC_SUBST(SZIP_LIB)
+AC_SUBST(LZF_LIB)
 AC_MSG_NOTICE([   HDF5_LIB=${HDF5_LIB}])
 AC_MSG_NOTICE([   HDF5_CXX_LIB=${HDF5_CXX_LIB}])
 AC_MSG_NOTICE([   SZIP_LIB=${SZIP_LIB}])
+AC_MSG_NOTICE([   LZF_LIB=${LZF_LIB}])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
