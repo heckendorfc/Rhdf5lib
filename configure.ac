@@ -51,7 +51,17 @@ cd ../;
     LDFLAGS="-L`pwd -P`/szip/src/.libs" \
     CPPFLAGS="-I`pwd -P`/szip/src/"
 $MAKE lib
-cd ../../
+cd ../
+
+echo "building the LZ4 filter...";
+## build LZ4 filter
+cd filters/lz4/lib;
+make
+cd ../
+${CC} ${CLFAGS} -fPIC -shared -w H5Zlz4.c -I../../${BASEPBNAME}/src lib/liblz4.a ../../${BASEPBNAME}/src/.libs/libhdf5.a -o libH5Zlz4.so
+cd ../../../
+
+echo "LOCATION `pwd`"
 
 #update variables in Makevars
 HDF5_INCLUDE="${BASEPBNAME}/src"
@@ -64,11 +74,15 @@ AC_MSG_NOTICE([   HDF5_CXX_INCLUDE=${HDF5_CXX_INCLUDE}])
 HDF5_LIB="${BASEPBNAME}/src/.libs/libhdf5.a"
 HDF5_CXX_LIB="${BASEPBNAME}/c++/src/.libs/libhdf5_cpp.a"
 SZIP_LIB="${BASEPBNAME}/szip/src/.libs/libsz.a"
+LZ4_LIB="filters/lz4/lz4_filter.so"
+
 AC_SUBST(HDF5_LIB)
 AC_SUBST(HDF5_CXX_LIB)
 AC_SUBST(SZIP_LIB)
+AC_SUBST(LZ4_LIB)
 AC_MSG_NOTICE([   HDF5_LIB=${HDF5_LIB}])
 AC_MSG_NOTICE([   HDF5_CXX_LIB=${HDF5_CXX_LIB}])
 AC_MSG_NOTICE([   SZIP_LIB=${SZIP_LIB}])
+AC_MSG_NOTICE([   LZ4_LIB=${LZ4_LIB}])
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
