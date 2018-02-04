@@ -89,19 +89,19 @@ getHdf5Version <- function() {
   return(versionNum)
 }
 
-.onLoad <- function() {
-    
-    path <- Sys.getenv(
-        x = "RHDF5LIB_RPATH",
-        unset = system.file("lib", package="Rhdf5lib", mustWork=TRUE)
-    )
-    
-    if (nzchar(.Platform$r_arch)) {
-        arch <- sprintf("/%s", .Platform$r_arch)
-    } else {
-        arch <- ""
-    }
-    patharch <- paste0(path, arch)
-    
-    Sys.setenv(HDF5_PLUGIN_PATH=patharch)
-}
+# .onLoad <- function(libname, pkgname) {
+#     
+#     path <- Sys.getenv(
+#         x = "RHDF5LIB_RPATH",
+#         unset = system.file("lib", package="Rhdf5lib", mustWork=TRUE)
+#     )
+#     
+#     if (nzchar(.Platform$r_arch)) {
+#         arch <- sprintf("/%s", .Platform$r_arch)
+#     } else {
+#         arch <- ""
+#     }
+#     patharch <- paste0(path, arch)
+#     
+#     Sys.setenv(HDF5_PLUGIN_PATH=patharch)
+# }
