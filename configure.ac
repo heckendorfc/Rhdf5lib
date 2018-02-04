@@ -51,7 +51,7 @@ cd ../;
     LDFLAGS="-L`pwd -P`/szip/src/.libs" \
     CPPFLAGS="-I`pwd -P`/szip/src/"
 $MAKE lib
-cd ../
+cd ../../
 
 echo "LOCATION `pwd`"
 
