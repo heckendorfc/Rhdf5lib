@@ -10,7 +10,7 @@
 #' pkgconfig("PKG_CXX_LIBS")
 #' pkgconfig("PKG_C_LIBS")
 #' @export
-pkgconfig <- function(opt = c("PKG_CXX_LIBS", "PKG_C_LIBS")) {
+pkgconfig <- function(opt = c("PKG_CXX_LIBS", "PKG_C_LIBS", "PKG_C_DYNAMIC_LIBS")) {
     
     path <- Sys.getenv(
         x = "RHDF5LIB_RPATH",
@@ -65,7 +65,25 @@ pkgconfig <- function(opt = c("PKG_CXX_LIBS", "PKG_C_LIBS")) {
                                             patharch)
                                 }
                          )
-                     }
+                     },
+                    PKG_C_DYNAMIC_LIBS = {
+                        switch(Sys.info()['sysname'], 
+                               Linux = {
+                                   sprintf('-Wl,-rpath=%s %s/libhdf5.so',
+                                           patharch, patharch)
+                            #   }, Darwin = {
+                            #       sprintf('%s/libhdf5.a %s/libsz.a', 
+                            #               patharch, patharch)
+                            #   }, Windows = {
+                            #       patharch <- gsub(x = shortPathName(patharch),
+                            #                        pattern = "\\",
+                            #                        replacement = "/", 
+                            #                        fixed = TRUE)
+                            #       sprintf('-L%s -lhdf5 -lszip -lz -lpsapi', 
+                            #               patharch)
+                               }
+                        )
+                    } 
     )
     
     cat(result)

@@ -587,7 +587,7 @@ PACKAGE_URL=''
 ac_unique_file="src"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
-LZ4_LIB
+HDF5_LIB_SO
 SZIP_LIB
 HDF5_CXX_LIB
 HDF5_LIB
@@ -2881,7 +2881,7 @@ $MAKE
 echo "building the hdf5 library...";
 cd ../;
 ## we add the '-w' flag to suppress all the warnings hdf5 prints
-./configure --with-pic --enable-shared=no --enable-cxx \
+./configure --with-pic --enable-shared=yes --enable-cxx \
     --with-szlib \
     CXX="${CXX}" CXFLAGS="${CXXFLAGS} -w" \
     CC="${CC}" CFLAGS="${CFLAGS} -w" \
@@ -2909,13 +2909,18 @@ SZIP_LIB="${BASEPBNAME}/szip/src/.libs/libsz.a"
 
 
 
-
 { $as_echo "$as_me:${as_lineno-$LINENO}:    HDF5_LIB=${HDF5_LIB}" >&5
 $as_echo "$as_me:    HDF5_LIB=${HDF5_LIB}" >&6;}
 { $as_echo "$as_me:${as_lineno-$LINENO}:    HDF5_CXX_LIB=${HDF5_CXX_LIB}" >&5
 $as_echo "$as_me:    HDF5_CXX_LIB=${HDF5_CXX_LIB}" >&6;}
 { $as_echo "$as_me:${as_lineno-$LINENO}:    SZIP_LIB=${SZIP_LIB}" >&5
 $as_echo "$as_me:    SZIP_LIB=${SZIP_LIB}" >&6;}
+
+HDF5_LIB_SO="${BASEPBNAME}/src/.libs/libhdf5.so*"
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}:    HDF5_LIB_SO=${HDF5_LIB_SO}" >&5
+$as_echo "$as_me:    HDF5_LIB_SO=${HDF5_LIB_SO}" >&6;}
+
 ac_config_files="$ac_config_files src/Makevars"
 
 cat >confcache <<\_ACEOF

@@ -44,7 +44,7 @@ $MAKE
 echo "building the hdf5 library...";
 cd ../;
 ## we add the '-w' flag to suppress all the warnings hdf5 prints
-./configure --with-pic --enable-shared=no --enable-cxx \
+./configure --with-pic --enable-shared=yes --enable-cxx \
     --with-szlib \
     CXX="${CXX}" CXFLAGS="${CXXFLAGS} -w" \
     CC="${CC}" CFLAGS="${CFLAGS} -w" \
@@ -70,9 +70,13 @@ SZIP_LIB="${BASEPBNAME}/szip/src/.libs/libsz.a"
 AC_SUBST(HDF5_LIB)
 AC_SUBST(HDF5_CXX_LIB)
 AC_SUBST(SZIP_LIB)
-AC_SUBST(LZ4_LIB)
 AC_MSG_NOTICE([   HDF5_LIB=${HDF5_LIB}])
 AC_MSG_NOTICE([   HDF5_CXX_LIB=${HDF5_CXX_LIB}])
 AC_MSG_NOTICE([   SZIP_LIB=${SZIP_LIB}])
+
+HDF5_LIB_SO="${BASEPBNAME}/src/.libs/libhdf5.so*"
+AC_SUBST(HDF5_LIB_SO)
+AC_MSG_NOTICE([   HDF5_LIB_SO=${HDF5_LIB_SO}])
+
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
