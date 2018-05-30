@@ -1799,7 +1799,11 @@ if test -z "${R_HOME}"; then
   exit 1
 fi
 
-CC=`"${R_HOME}/bin/R" CMD config CC`
+if test -z "${CC}"
+then
+    CC=`"${R_HOME}/bin/R" CMD config CC`
+fi
+
 CFLAGS=`"${R_HOME}/bin/R" CMD config CFLAGS`
 CXX=`"${R_HOME}/bin/R" CMD config CXX`
 CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
